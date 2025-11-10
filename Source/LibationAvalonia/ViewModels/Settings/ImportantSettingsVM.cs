@@ -21,6 +21,7 @@ namespace LibationAvalonia.ViewModels.Settings
 			this.config = config;
 
 			BooksDirectory = config.Books?.PathWithoutPrefix ?? Configuration.DefaultBooksDirectory;
+			PDFsDirectory = config.PDFs?.PathWithoutPrefix ?? "";
 			SavePodcastsToParentFolder = config.SavePodcastsToParentFolder;
 			OverwriteExisting = config.OverwriteExisting;
 			CreationTime = DateTimeSources.SingleOrDefault(v => v.Value == config.CreationTime) ?? DateTimeSources[0];
@@ -37,6 +38,7 @@ namespace LibationAvalonia.ViewModels.Settings
 		public void SaveSettings(Configuration config)
 		{			
 			config.Books = GetBooksDirectory();
+			config.PDFs = GetPDFsDirectory();
 			config.SavePodcastsToParentFolder = SavePodcastsToParentFolder;
 			config.OverwriteExisting = OverwriteExisting;
 			config.CreationTime = CreationTime.Value;
@@ -46,6 +48,13 @@ namespace LibationAvalonia.ViewModels.Settings
 
 		public LongPath GetBooksDirectory()
 			=> Configuration.GetKnownDirectory(BooksDirectory) is Configuration.KnownDirectories.None ? BooksDirectory : System.IO.Path.Combine(BooksDirectory, "Books");
+
+		public LongPath? GetPDFsDirectory()
+		{
+			if (string.IsNullOrWhiteSpace(PDFsDirectory))
+				return null;
+			return Configuration.GetKnownDirectory(PDFsDirectory) is Configuration.KnownDirectories.None ? PDFsDirectory : System.IO.Path.Combine(PDFsDirectory, "PDFs");
+		}
 
 		private static float scaleFactorToLinearRange(float scaleFactor)
 			=> float.Round(100 * MathF.Log2(scaleFactor));
@@ -75,6 +84,7 @@ namespace LibationAvalonia.ViewModels.Settings
 		};
 
 		public string BooksText { get; } = Configuration.GetDescription(nameof(Configuration.Books));
+		public string PDFsText { get; } = Configuration.GetDescription(nameof(Configuration.PDFs));
 		public string SavePodcastsToParentFolderText { get; } = Configuration.GetDescription(nameof(Configuration.SavePodcastsToParentFolder));
 		public string OverwriteExistingText { get; } = Configuration.GetDescription(nameof(Configuration.OverwriteExisting));
 		public string CreationTimeText { get; } = Configuration.GetDescription(nameof(Configuration.CreationTime));
@@ -90,6 +100,7 @@ namespace LibationAvalonia.ViewModels.Settings
 		public string[] Themes { get; } = { "System", nameof(Avalonia.Styling.ThemeVariant.Light), nameof(Avalonia.Styling.ThemeVariant.Dark) };
 
 		public string BooksDirectory { get; set; }
+		public string? PDFsDirectory { get; set; }
 		public bool SavePodcastsToParentFolder { get; set; }
 		public bool OverwriteExisting { get; set; }
 		public float GridScaleFactor { get; set; }

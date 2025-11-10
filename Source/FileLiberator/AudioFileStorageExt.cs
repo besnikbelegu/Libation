@@ -47,5 +47,32 @@ namespace FileLiberator
 		public static string GetCustomDirFilename(this AudioFileStorage _, LibraryBook libraryBook, string dirFullPath, string extension, MultiConvertFileProperties partProperties = null, bool returnFirstExisting = false)
 			=> partProperties is null ? Templates.File.GetFilename(libraryBook.ToDto(), dirFullPath, extension, returnFirstExisting: returnFirstExisting)
 			: Templates.ChapterFile.GetFilename(libraryBook.ToDto(), partProperties, dirFullPath, extension, returnFirstExisting: returnFirstExisting);
+
+	/// <summary>
+	/// PDF: when using separate PDFs directory
+	/// </summary>
+	public static string GetPDFsDirectoryFilename(this AudioFileStorage audioFileStorage, LibraryBook libraryBook, string extension, bool returnFirstExisting = false)
+	{
+		// GetDestinationDirectory returns a full path with BooksDirectory as base
+		// We need to extract just the relative folder structure to use with PDFsDirectory
+		var fullDestinationInBooks = audioFileStorage.GetDestinationDirectory(libraryBook);
+		var booksDir = AudibleFileStorage.BooksDirectory?.ToString();
+
+		// Get the relative path by removing the BooksDirectory prefix
+		var relativePath = fullDestinationInBooks;
+		if (!string.IsNullOrEmpty(booksDir) && fullDestinationInBooks.StartsWith(booksDir))
+		{
+			relativePath = fullDestinationInBooks.Substring(booksDir.Length).TrimStart(System.IO.Path.DirectorySeparatorChar, System.IO.Path.AltDirectorySeparatorChar);
+		}
+
+		// Combine with PDFsDirectory to get the full destination for PDFs
+		var fullDestination = System.IO.Path.Combine(AudibleFileStorage.PDFsDirectory.ToString(), relativePath);
+
+		return Templates.File.GetFilename(
+			libraryBook.ToDto(),
+			fullDestination,
+			extension,
+			returnFirstExisting: returnFirstExisting);
+	}
 	}
 }

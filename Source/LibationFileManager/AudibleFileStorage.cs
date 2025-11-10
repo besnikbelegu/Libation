@@ -65,6 +65,27 @@ namespace LibationFileManager
 				}
 			}
 		}
+
+		/// <summary>
+		/// The fully-qualified PDFs directory path if the directory exists, otherwise falls back to BooksDirectory.
+		/// </summary>
+		public static LongPath PDFsDirectory
+		{
+			get
+			{
+				if (string.IsNullOrWhiteSpace(Configuration.Instance.PDFs))
+					return BooksDirectory ?? throw new InvalidOperationException("Books directory must be configured");
+				try
+				{
+					return Directory.CreateDirectory(Configuration.Instance.PDFs).FullName;
+				}
+				catch (Exception ex)
+				{
+					Serilog.Log.Error(ex, "Error creating PDFs directory: {@PDFsDirectory}", Configuration.Instance.PDFs);
+					return BooksDirectory ?? throw new InvalidOperationException("Books directory must be configured");
+				}
+			}
+		}
 		#endregion
 
 		#region instance

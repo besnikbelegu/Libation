@@ -140,6 +140,37 @@ namespace LibationFileManager
 		/// </summary>
 		public bool BooksCanWriteWindowsInvalidChars => !IsWindows && (m_BooksCanWriteWindowsInvalidChars ??= FileSystemTest.CanWriteWindowsInvalidChars(AudibleFileStorage.BooksDirectory));
 
+		[Description("Location for PDF and supplement storage. When empty, PDFs will be stored alongside audio files")]
+		public LongPath? PDFs
+		{
+			get => GetString();
+			set
+			{
+				if (value != PDFs)
+				{
+					OnPropertyChanging(nameof(PDFs), PDFs, value);
+					Settings.SetString(nameof(PDFs), value);
+					m_PDFsCanWrite255UnicodeChars = null;
+					m_PDFsCanWriteWindowsInvalidChars = null;
+					OnPropertyChanged(nameof(PDFs), value);
+				}
+			}
+		}
+
+		private bool? m_PDFsCanWrite255UnicodeChars;
+		private bool? m_PDFsCanWriteWindowsInvalidChars;
+		/// <summary>
+		/// True if the PDFs directory can be written to with 255 unicode character filenames
+		/// <para/> Does not persist. Check and set this value at runtime and whenever PDFs is changed.
+		/// </summary>
+		public bool PDFsCanWrite255UnicodeChars => m_PDFsCanWrite255UnicodeChars ??= FileSystemTest.CanWrite255UnicodeChars(AudibleFileStorage.PDFsDirectory);
+		/// <summary>
+		/// True if the PDFs directory can be written to with filenames containing characters invalid on Windows (:, *, ?, &lt;, &gt;, |)
+		/// <para/> Always false on Windows platforms.
+		/// <para/> Does not persist. Check and set this value at runtime and whenever PDFs is changed.
+		/// </summary>
+		public bool PDFsCanWriteWindowsInvalidChars => !IsWindows && (m_PDFsCanWriteWindowsInvalidChars ??= FileSystemTest.CanWriteWindowsInvalidChars(AudibleFileStorage.PDFsDirectory));
+
 		[Description("Overwrite existing files if they already exist?")]
 		public bool OverwriteExisting { get => GetNonString(defaultValue: false); set => SetNonString(value); }
 

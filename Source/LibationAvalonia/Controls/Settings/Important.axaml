@@ -8,7 +8,7 @@
 			 x:DataType="vm:ImportantSettingsVM"
              x:Class="LibationAvalonia.Controls.Settings.Important">
 
-	<Grid RowDefinitions="Auto,Auto,Auto,*">
+	<Grid RowDefinitions="Auto,Auto,Auto,Auto,*">
 		<controls:GroupBox
 			Grid.Row="0"
 			Margin="5"
@@ -70,8 +70,42 @@
 
 		</controls:GroupBox>
 
+		<controls:GroupBox
+			Grid.Row="1"
+			Margin="5"
+			Label="PDFs/Supplements Location (Optional)">
+
+			<StackPanel>
+				<TextBlock
+					Margin="5"
+					TextWrapping="Wrap"
+					Text="{CompiledBinding PDFsText}" />
+
+				<controls:DirectoryOrCustomSelectControl Margin="0,10,0,10"
+											SubDirectory="PDFs"
+											Directory="{CompiledBinding PDFsDirectory, Mode=TwoWay}"
+											KnownDirectories="{CompiledBinding KnownDirectories}" />
+
+				<TextBlock
+					Margin="5,0,5,10"
+					TextWrapping="Wrap"
+					FontSize="11"
+					Foreground="Gray"
+					Text="Leave empty to store PDFs alongside audio files (legacy behavior)" />
+
+				<Button
+					Margin="5,10,5,5"
+					Padding="20,5"
+					HorizontalAlignment="Left"
+					Content="Migrate Existing PDFs to New Location"
+					Click="MigratePdfs_Click"
+					ToolTip.Tip="Move all existing PDFs from their current location to the configured PDFs directory" />
+			</StackPanel>
+
+		</controls:GroupBox>
+
 		<StackPanel
-			Grid.Row="1" Margin="5"
+			Grid.Row="2" Margin="5"
 			Orientation="Horizontal">
 
 			<TextBlock
@@ -96,7 +130,7 @@
 		</StackPanel>
 
 		<controls:GroupBox
-			Grid.Row="2"
+			Grid.Row="3"
 			Margin="5"
 			Label="Display Settings">
 			<Grid
@@ -151,7 +185,7 @@
 		</controls:GroupBox>
 
 		<Grid
-			Grid.Row="3"
+			Grid.Row="4"
 			ColumnDefinitions="Auto,Auto,*"
 			Margin="10"
 			VerticalAlignment="Bottom">

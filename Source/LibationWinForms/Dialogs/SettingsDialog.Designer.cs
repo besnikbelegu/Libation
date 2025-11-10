@@ -47,6 +47,9 @@
 			inProgressSelectControl = new DirectorySelectControl();
 			logsBtn = new System.Windows.Forms.Button();
 			booksSelectControl = new DirectoryOrCustomSelectControl();
+			pdfsSelectControl = new DirectoryOrCustomSelectControl();
+			pdfsLocationDescLbl = new System.Windows.Forms.Label();
+			migratePdfsBtn = new System.Windows.Forms.Button();
 			loggingLevelLbl = new System.Windows.Forms.Label();
 			loggingLevelCb = new System.Windows.Forms.ComboBox();
 			tabControl = new System.Windows.Forms.TabControl();
@@ -361,14 +364,43 @@
 			logsBtn.Click += logsBtn_Click;
 			// 
 			// booksSelectControl
-			// 
+			//
 			booksSelectControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
 			booksSelectControl.Location = new System.Drawing.Point(6, 37);
 			booksSelectControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			booksSelectControl.Name = "booksSelectControl";
 			booksSelectControl.Size = new System.Drawing.Size(832, 102);
 			booksSelectControl.TabIndex = 2;
-			// 
+			//
+			// pdfsLocationDescLbl
+			//
+			pdfsLocationDescLbl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+			pdfsLocationDescLbl.Location = new System.Drawing.Point(6, 155);
+			pdfsLocationDescLbl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+			pdfsLocationDescLbl.Name = "pdfsLocationDescLbl";
+			pdfsLocationDescLbl.Size = new System.Drawing.Size(832, 40);
+			pdfsLocationDescLbl.TabIndex = 20;
+			pdfsLocationDescLbl.Text = "PDFs/Supplements Location (Optional)";
+			//
+			// pdfsSelectControl
+			//
+			pdfsSelectControl.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+			pdfsSelectControl.Location = new System.Drawing.Point(6, 195);
+			pdfsSelectControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+			pdfsSelectControl.Name = "pdfsSelectControl";
+			pdfsSelectControl.Size = new System.Drawing.Size(832, 102);
+			pdfsSelectControl.TabIndex = 21;
+			//
+			// migratePdfsBtn
+			//
+			migratePdfsBtn.Location = new System.Drawing.Point(6, 305);
+			migratePdfsBtn.Name = "migratePdfsBtn";
+			migratePdfsBtn.Size = new System.Drawing.Size(250, 30);
+			migratePdfsBtn.TabIndex = 22;
+			migratePdfsBtn.Text = "Migrate Existing PDFs to New Location";
+			migratePdfsBtn.UseVisualStyleBackColor = true;
+			migratePdfsBtn.Click += new System.EventHandler(migratePdfsBtn_Click);
+			//
 			// loggingLevelLbl
 			// 
 			loggingLevelLbl.AutoSize = true;
@@ -495,9 +527,12 @@
 			booksGb.Controls.Add(saveEpisodesToSeriesFolderCbox);
 			booksGb.Controls.Add(booksSelectControl);
 			booksGb.Controls.Add(booksLocationDescLbl);
+			booksGb.Controls.Add(pdfsSelectControl);
+			booksGb.Controls.Add(pdfsLocationDescLbl);
+			booksGb.Controls.Add(migratePdfsBtn);
 			booksGb.Location = new System.Drawing.Point(6, 6);
 			booksGb.Name = "booksGb";
-			booksGb.Size = new System.Drawing.Size(844, 265);
+			booksGb.Size = new System.Drawing.Size(844, 345);
 			booksGb.TabIndex = 0;
 			booksGb.TabStop = false;
 			booksGb.Text = "Books location";
@@ -1460,6 +1495,9 @@
 
 		#endregion
 		private System.Windows.Forms.Label booksLocationDescLbl;
+		private System.Windows.Forms.Label pdfsLocationDescLbl;
+		private DirectoryOrCustomSelectControl pdfsSelectControl;
+		private System.Windows.Forms.Button migratePdfsBtn;
 		private System.Windows.Forms.Label inProgressDescLbl;
 		public System.Windows.Forms.Button saveBtn;
 		public System.Windows.Forms.Button cancelBtn;

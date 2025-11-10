@@ -58,12 +58,29 @@ namespace FileLiberator
 		{
 			var extension = Path.GetExtension(getdownloadUrl(libraryBook));
 
-			// if audio file exists, get it's dir. else return base Book dir
+			// If user has configured a separate PDFs directory, always use it
+			var configuredPDFsPath = Configuration.Instance.PDFs;
+			Serilog.Log.Debug("PDF Download: Configured PDFs path = {PDFsPath}", configuredPDFsPath ?? "(null)");
+
+			if (!string.IsNullOrWhiteSpace(configuredPDFsPath))
+			{
+				var pdfPath = AudibleFileStorage.Audio.GetPDFsDirectoryFilename(libraryBook, extension);
+				Serilog.Log.Information("PDF Download: Using separate PDFs directory. Path = {PDFPath}", pdfPath);
+				return pdfPath;
+			}
+
+			// Legacy behavior: if audio file exists, get it's dir. else return base Book dir
 			var existingPath = Path.GetDirectoryName(AudibleFileStorage.Audio.GetPath(libraryBook.Book.AudibleProductId));
 			if (existingPath is not null)
-				return AudibleFileStorage.Audio.GetCustomDirFilename(libraryBook, existingPath, extension);
+			{
+				var pdfPath = AudibleFileStorage.Audio.GetCustomDirFilename(libraryBook, existingPath, extension);
+				Serilog.Log.Information("PDF Download: Using legacy behavior (alongside audio). Path = {PDFPath}", pdfPath);
+				return pdfPath;
+			}
 
-			return AudibleFileStorage.Audio.GetBooksDirectoryFilename(libraryBook, extension);
+			var defaultPath = AudibleFileStorage.Audio.GetBooksDirectoryFilename(libraryBook, extension);
+			Serilog.Log.Information("PDF Download: Using Books directory. Path = {PDFPath}", defaultPath);
+			return defaultPath;
 		}
 
 		private static string getdownloadUrl(LibraryBook libraryBook)
@@ -73,6 +90,14 @@ namespace FileLiberator
 		{
 			var api = await libraryBook.GetApiAsync();
 			var downloadUrl = await api.GetPdfDownloadLinkAsync(libraryBook.Book.AudibleProductId);
+
+			// Ensure the directory exists before downloading
+			var directory = Path.GetDirectoryName(proposedDownloadFilePath);
+			if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+			{
+				Serilog.Log.Debug("Creating PDF directory: {Directory}", directory);
+				Directory.CreateDirectory(directory);
+			}
 
 			var progress = new Progress<DownloadProgress>(OnStreamingProgressChanged);
 
