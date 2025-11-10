@@ -9,12 +9,16 @@ cd /path/to/Libation
 ./Scripts/create-release-bundles.sh 12.8.0
 ```
 
-This will create bundles for:
-- macOS x64 (.tgz)
-- macOS ARM64 (.tgz)
-- Windows x64 (.zip)
-- Linux x64 (.deb)
-- Linux x64 (.rpm)
+This will create **self-contained bundles** for:
+- macOS x64 (.tgz) - includes .NET runtime
+- macOS ARM64 (.tgz) - includes .NET runtime
+- Windows x64 (.zip) - includes .NET runtime
+- Linux x64 (.deb) - includes .NET runtime
+- Linux x64 (.rpm) - includes .NET runtime
+
+**Users can extract and run immediately - no .NET installation needed!**
+
+For detailed information about runtime distribution, see [RUNTIME_DISTRIBUTION_GUIDE.md](RUNTIME_DISTRIBUTION_GUIDE.md)
 
 ## Prerequisites
 

@@ -187,12 +187,13 @@ publish_platform_builds() {
 
         echo -e "\n${BLUE}[${current}/${total_platforms}]${NC} Publishing for $platform_name (RID: $rid)..."
 
+        # Publish as self-contained so users don't need .NET runtime installed
         dotnet publish \
             "$PROJECT_ROOT/Source/LibationAvalonia/LibationAvalonia.csproj" \
             -c Release \
             -p:RuntimeIdentifier="$rid" \
             -o "$output_dir" \
-            --no-self-contained \
+            --self-contained \
             2>&1 | tail -5
 
         if [ -d "$output_dir" ] && [ "$(ls -A "$output_dir")" ]; then
