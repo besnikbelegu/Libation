@@ -230,14 +230,25 @@ create_macos_bundle() {
     # Make script executable
     chmod +x "$SCRIPT_DIR/Bundle_MacOS.sh"
 
-    # Run the bundle script
+    # Run the bundle script and capture errors
+    local error_log=$(mktemp)
     pushd "$FINAL_OUTPUT_DIR" > /dev/null
-    bash "$SCRIPT_DIR/Bundle_MacOS.sh" "$build_dir" "$VERSION" "$rid" > /dev/null 2>&1
+    if ! bash "$SCRIPT_DIR/Bundle_MacOS.sh" "$build_dir" "$VERSION" "$rid" > "$error_log" 2>&1; then
+        print_error "macOS bundle creation failed for $rid"
+        cat "$error_log" | sed 's/^/  /'
+        rm -f "$error_log"
+        popd > /dev/null
+        return
+    fi
     popd > /dev/null
+    rm -f "$error_log"
 
-    # Find and verify the created bundle
-    local bundle_file=$(ls -t "$FINAL_OUTPUT_DIR"/Libation.${VERSION}-macOS-*.tgz 2>/dev/null | head -1)
+    # Find and verify the created bundle (Bundle_MacOS.sh moves it to ./bundle/)
+    local bundle_file=$(ls -t "$FINAL_OUTPUT_DIR/bundle"/Libation.${VERSION}-macOS-*.tgz 2>/dev/null | head -1)
     if [ -f "$bundle_file" ]; then
+        # Move from bundle subdirectory to FINAL_OUTPUT_DIR
+        mv "$bundle_file" "$FINAL_OUTPUT_DIR/" 2>/dev/null
+        bundle_file="$FINAL_OUTPUT_DIR/$(basename "$bundle_file")"
         local size=$(du -h "$bundle_file" | cut -f1)
         print_success "macOS bundle created: $(basename "$bundle_file") ($size)"
         echo "$bundle_file"
@@ -293,10 +304,18 @@ create_linux_deb_bundle() {
     # Make script executable
     chmod +x "$SCRIPT_DIR/Bundle_Debian.sh"
 
-    # Run the bundle script
+    # Run the bundle script and capture errors
+    local error_log=$(mktemp)
     pushd "$FINAL_OUTPUT_DIR" > /dev/null
-    bash "$SCRIPT_DIR/Bundle_Debian.sh" "$build_dir" "$VERSION" "$rid" > /dev/null 2>&1
+    if ! bash "$SCRIPT_DIR/Bundle_Debian.sh" "$build_dir" "$VERSION" "$rid" > "$error_log" 2>&1; then
+        print_error "Debian bundle creation failed for $rid"
+        cat "$error_log" | sed 's/^/  /'
+        rm -f "$error_log"
+        popd > /dev/null
+        return
+    fi
     popd > /dev/null
+    rm -f "$error_log"
 
     # Find and verify the created bundle
     local bundle_file=$(ls -t "$FINAL_OUTPUT_DIR"/libation_${VERSION}*.deb 2>/dev/null | head -1)
@@ -328,10 +347,18 @@ create_linux_rpm_bundle() {
     # Make script executable
     chmod +x "$SCRIPT_DIR/Bundle_Redhat.sh"
 
-    # Run the bundle script
+    # Run the bundle script and capture errors
+    local error_log=$(mktemp)
     pushd "$FINAL_OUTPUT_DIR" > /dev/null
-    bash "$SCRIPT_DIR/Bundle_Redhat.sh" "$build_dir" "$VERSION" "$rid" > /dev/null 2>&1
+    if ! bash "$SCRIPT_DIR/Bundle_Redhat.sh" "$build_dir" "$VERSION" "$rid" > "$error_log" 2>&1; then
+        print_error "RedHat bundle creation failed for $rid"
+        cat "$error_log" | sed 's/^/  /'
+        rm -f "$error_log"
+        popd > /dev/null
+        return
+    fi
     popd > /dev/null
+    rm -f "$error_log"
 
     # Find and verify the created bundle
     local bundle_file=$(ls -t "$FINAL_OUTPUT_DIR"/libation-${VERSION}*.rpm 2>/dev/null | head -1)

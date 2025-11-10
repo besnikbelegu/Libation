@@ -76,10 +76,10 @@ mv $BUNDLE_MACOS/Info.plist $BUNDLE_CONTENTS/Info.plist
 
 PLIST_ARCH=$(echo $ARCH | sed 's/x64/x86_64/')
 echo "Set LSArchitecturePriority to $PLIST_ARCH"
-sed -i -e "s/ARCHITECTURE_STRING/$PLIST_ARCH/" $BUNDLE_CONTENTS/Info.plist
+sed -i '' "s/ARCHITECTURE_STRING/$PLIST_ARCH/" $BUNDLE_CONTENTS/Info.plist
 
 echo "Set CFBundleVersion to $VERSION"
-sed -i -e "s/VERSION_STRING/$VERSION/" $BUNDLE_CONTENTS/Info.plist
+sed -i '' "s/VERSION_STRING/$VERSION/" $BUNDLE_CONTENTS/Info.plist
 
 
 delfiles=('MacOSConfigApp' 'MacOSConfigApp.deps.json' 'MacOSConfigApp.runtimeconfig.json')

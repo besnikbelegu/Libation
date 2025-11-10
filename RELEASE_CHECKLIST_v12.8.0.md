@@ -67,15 +67,15 @@ Use the bundling scripts in `Scripts/`:
 
 ## 📊 Release Statistics
 
-| Metric | Value |
-|--------|-------|
-| Version Jump | v12.7.0 → v12.8.0 (Minor) |
-| Commits Included | 11 |
-| Files Changed | Multiple |
-| Build Platforms | 5 (macOS x64, macOS ARM64, Windows x64, Linux x64, Linux ARM64) |
-| Major Features | 1 (PDF Storage) |
-| Bug Fixes | 6+ |
-| Breaking Changes | 0 |
+| Metric           | Value                                                           |
+| ---------------- | --------------------------------------------------------------- |
+| Version Jump     | v12.7.0 → v12.8.0 (Minor)                                       |
+| Commits Included | 11                                                              |
+| Files Changed    | Multiple                                                        |
+| Build Platforms  | 5 (macOS x64, macOS ARM64, Windows x64, Linux x64, Linux ARM64) |
+| Major Features   | 1 (PDF Storage)                                                 |
+| Bug Fixes        | 6+                                                              |
+| Breaking Changes | 0                                                               |
 
 ---
 

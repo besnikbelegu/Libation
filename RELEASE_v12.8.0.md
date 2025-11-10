@@ -60,19 +60,19 @@ v12.8.0 introduces **PDF storage management features** with an intelligent migra
 
 ## 📝 Commits Included
 
-| Commit | Description |
-|--------|-------------|
-| `310484e9` | Bump version to 12.8.0 for release |
+| Commit     | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| `310484e9` | Bump version to 12.8.0 for release                                  |
 | `8517dd04` | Add feature to store PDFs in separate directory with migration tool |
-| `aa3a908c` | Enhance README.md with detailed developer section |
-| `7a01f075` | Merge PR #1415 from contributors |
-| `23d39148` | Update AboutDialog and add recent contributors |
-| `46be5327` | Improve SearchSyntaxDialog |
-| `e2fd88d0` | Improve ScanAccountsDialog usability |
-| `bb0dea3f` | Improve EditReplacementChars dialog usability |
-| `def0b1f6` | Prevent crash if watched RootDirectory is deleted |
-| `bfee5797` | Fix DirectoryOrCustomSelectControl |
-| `d4139861` | Only allow mocking lobby bugging |
+| `aa3a908c` | Enhance README.md with detailed developer section                   |
+| `7a01f075` | Merge PR #1415 from contributors                                    |
+| `23d39148` | Update AboutDialog and add recent contributors                      |
+| `46be5327` | Improve SearchSyntaxDialog                                          |
+| `e2fd88d0` | Improve ScanAccountsDialog usability                                |
+| `bb0dea3f` | Improve EditReplacementChars dialog usability                       |
+| `def0b1f6` | Prevent crash if watched RootDirectory is deleted                   |
+| `bfee5797` | Fix DirectoryOrCustomSelectControl                                  |
+| `d4139861` | Only allow mocking lobby bugging                                    |
 
 ---
 
