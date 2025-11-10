@@ -37,6 +37,15 @@
     - [Audio Formats (Dolby Atmos, Widevine, Spacial Audio)](Documentation/AudioFileFormats.md)
 - [Docker](Documentation/Docker.md)
 - [Frequently Asked Questions](Documentation/FrequentlyAskedQuestions.md)
+- [For Developers](#for-developers)
+    - [Prerequisites](#prerequisites)
+    - [Running Locally](#running-locally)
+    - [Debugging](#debugging)
+    - [Building for Different Platforms](#building-for-different-platforms)
+    - [Database Management](#database-management)
+    - [Running Tests](#running-tests)
+    - [Project Architecture](#project-architecture)
+    - [Useful Resources for Developers](#useful-resources-for-developers)
 
 ## Getting started
 
@@ -73,3 +82,192 @@
 Disclaimer: I've made every good-faith effort to include nothing insecure, malicious, anti-privacy, or destructive. That said: use at your own risk.
 
 I made this for myself and I want to share it with the great programming and audible/audiobook communities which have been so generous with their time and help.
+
+---
+
+## For Developers
+
+### Prerequisites
+
+- **.NET 9.0 SDK** - [Download from dot.net](https://dot.net)
+- **Git** - For version control
+- Optional: **Visual Studio 2022** or **Visual Studio Code** with C# extensions
+
+### Running Locally
+
+#### Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/rmcrackan/Libation.git
+cd Libation
+
+# Build and run the Avalonia UI (modern UI - recommended)
+dotnet run --project Source/LibationAvalonia/LibationAvalonia.csproj
+```
+
+#### Build Only (without running)
+
+```bash
+# Build the Avalonia UI
+dotnet build Source/LibationAvalonia/LibationAvalonia.csproj
+
+# Build the entire solution (includes WinForms legacy UI)
+dotnet build Source/Libation.sln
+```
+
+#### Run from Built Binary
+
+```bash
+# Debug build
+./Source/bin/Avalonia/Debug/Libation
+
+# Release build
+dotnet build Source/LibationAvalonia/LibationAvalonia.csproj -c Release
+./Source/bin/Avalonia/Release/Libation
+```
+
+#### Using VS Code Tasks
+
+If using VS Code, you can run pre-configured build tasks:
+
+```bash
+# Via command palette: Ctrl+Shift+P / Cmd+Shift+P > Tasks: Run Task
+# Available tasks:
+- build           # Build both Avalonia UI and LinuxConfigApp
+- build_libation  # Build Avalonia UI only
+- build_linux     # Build for Linux target (x64)
+```
+
+### Debugging
+
+#### Enable EF Core Query Logging
+
+To debug database queries, enable Entity Framework Core logging in your code:
+
+```csharp
+using var context = new LibationContext();
+context.ConfigureLogging(s => System.Diagnostics.Debug.WriteLine(s));
+// Output will appear in Visual Studio Output tab or debug console
+```
+
+See `Dinah.EntityFrameworkCore/DbContextLoggingExtensions.cs` for implementation details.
+
+#### UI Data Binding Issues (Avalonia)
+
+- Verify `GridEntry.NotifyPropertyChanged()` property names are spelled correctly (Avalonia is case-sensitive)
+- Use Avalonia DevTools for tracing bindings (Debug build includes `Avalonia.Diagnostics`)
+- Ensure `DataContext` is set before showing windows/dialogs
+
+#### Logging
+
+The project uses **Serilog** for structured logging. Logs are written to:
+- Console (Debug builds)
+- Log files in the application data directory
+
+Enable verbose logging in the UI settings for detailed debugging output.
+
+### Building for Different Platforms
+
+#### Windows (Default)
+
+```bash
+dotnet build Source/LibationAvalonia/LibationAvalonia.csproj
+```
+
+#### macOS
+
+```bash
+dotnet build Source/LibationAvalonia/LibationAvalonia.csproj \
+  -p:RuntimeIdentifier=osx-x64
+```
+
+#### Linux (x64)
+
+```bash
+dotnet build Source/LibationAvalonia/LibationAvalonia.csproj \
+  -p:TargetFramework=net9.0 \
+  -p:RuntimeIdentifier=linux-x64
+```
+
+See [InstallOnLinux.md](Documentation/InstallOnLinux.md) for additional Linux build details.
+
+### Database Management
+
+#### View Entity Framework Migrations
+
+```bash
+dotnet ef migrations list --project Source/DataLayer/DataLayer.csproj
+```
+
+#### Add a New Migration
+
+```bash
+# Using Package Manager Console (Visual Studio)
+# Set Default Project to: DataLayer
+# Set Startup Project to: DataLayer (or your test project)
+Add-Migration MyDescriptiveName -context LibationContext
+
+# Or via CLI
+dotnet ef migrations add MyDescriptiveName --project Source/DataLayer/DataLayer.csproj -c LibationContext
+```
+
+#### Update Database to Latest Migration
+
+```bash
+# Using Package Manager Console
+Update-Database -context LibationContext
+
+# Or via CLI
+dotnet ef database update --project Source/DataLayer/DataLayer.csproj -c LibationContext
+```
+
+#### Troubleshooting Migrations
+
+- **"Add-Migration not recognized"** → Install NuGet package: `Microsoft.EntityFrameworkCore.Tools`
+- **Unhelpful error messages** → Add `-verbose` flag to see detailed output
+- **Multiple contexts** → Always specify `-context LibationContext` to avoid ambiguity
+- **SQLite path issues** → Use forward slashes for paths: `Data Source=C:/foo/bar/db.sqlite`
+
+### Running Tests
+
+```bash
+# Run all tests
+dotnet test Source/_Tests/
+
+# Run specific test project
+dotnet test Source/_Tests/AudibleUtilities.Tests/
+
+# Run with coverage
+dotnet test Source/_Tests/ --collect:"XPlat Code Coverage"
+```
+
+Test projects:
+- `AudibleUtilities.Tests` - Audible API integration tests
+- `FileLiberator.Tests` - Audio file decryption tests
+- `FileManager.Tests` - File management tests
+- `LibationFileManager.Tests` - File manager service tests
+- `LibationSearchEngine.Tests` - Search engine tests
+
+### Project Architecture
+
+The solution enforces layered dependencies (numbered 1-6):
+
+1. **Core Libraries** - Universal utilities
+2. **Utilities (domain ignorant)** - Encryption, network, file handling
+3. **Domain Internal Utilities (db ignorant)** - Libation-specific logic
+4. **Domain (db)** - EF Core entities and configurations (`DataLayer`)
+5. **Domain Utilities (db aware)** - Application services (`ApplicationServices`)
+6. **Application** - UIs and CLIs (`LibationAvalonia`, `LibationCli`, `LibationWinForms`)
+
+For detailed architecture information, see:
+- `Source/_ARCHITECTURE NOTES.txt`
+- `Source/__README - COLLABORATORS.txt`
+- `.github/copilot-instructions.md`
+
+### Useful Resources for Developers
+
+- **Avalonia UI Patterns:** `Source/_AvaloniaUI Primer.txt`
+- **Database Operations:** `Source/_DB_NOTES.txt`
+- **Contributing Guidelines:** `Source/__README - COLLABORATORS.txt`
+
