@@ -1,0 +1,1 @@
+dotnet run --project ../Source/LibationAvalonia/LibationAvalonia.csproj -c Debug

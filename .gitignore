@@ -383,3 +383,4 @@ deb
 *.zip
 *.app
 TestPublish*
+build/*
