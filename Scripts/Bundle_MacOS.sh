@@ -93,7 +93,9 @@ done
 APP_FILE=Libation.${VERSION}-macOS-chardonnay-${ARCH}.tgz
 
 echo "Signing executables in: $BUNDLE"
-codesign --force --deep -s - $BUNDLE
+# Find the directory where the script is located to reference entitlements.plist
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+codesign --force --deep -s - --entitlements "$SCRIPT_DIR/entitlements.plist" $BUNDLE
 
 echo "Creating app bundle: $APP_FILE"
 tar -czvf $APP_FILE $BUNDLE

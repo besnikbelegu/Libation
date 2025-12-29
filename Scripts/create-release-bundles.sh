@@ -187,11 +187,14 @@ publish_platform_builds() {
 
         echo -e "\n${BLUE}[${current}/${total_platforms}]${NC} Publishing for $platform_name (RID: $rid)..."
 
+        # Clean before publishing to prevent architecture cross-contamination
+        dotnet clean "$PROJECT_ROOT/Source/LibationAvalonia/LibationAvalonia.csproj" -v q
+
         # Publish as self-contained so users don't need .NET runtime installed
         dotnet publish \
             "$PROJECT_ROOT/Source/LibationAvalonia/LibationAvalonia.csproj" \
             -c Release \
-            -p:RuntimeIdentifier="$rid" \
+            -r "$rid" \
             -o "$output_dir" \
             --self-contained \
             2>&1 | tail -5
@@ -271,9 +274,9 @@ create_windows_bundle() {
     local bundle_name="Libation.${VERSION}-Windows-chardonnay-${rid}.zip"
     local bundle_path="$FINAL_OUTPUT_DIR/$bundle_name"
 
-    # Create zip file
-    pushd "$TEMP_BUILD_DIR" > /dev/null
-    zip -r -q "$bundle_path" "$rid/"
+    # Create zip file from inside the build directory (flattens the structure)
+    pushd "$build_dir" > /dev/null
+    zip -r -q "$bundle_path" . 
     popd > /dev/null
 
     if [ -f "$bundle_path" ]; then

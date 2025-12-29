@@ -44,6 +44,9 @@
 		<None Remove="Assets\MBIcons\Error_64.png" />
 		<None Remove="Assets\MBIcons\Exclamation_64.png" />
 		<None Remove="Assets\MBIcons\Question_64.png" />
+		<None Include="Assets\Libation.icns" Link="libation.icns">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 	<ItemGroup>

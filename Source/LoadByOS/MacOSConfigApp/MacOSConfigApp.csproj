@@ -6,7 +6,7 @@
     <!--<TargetFramework>net8.0-macos</TargetFramework>-->
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishReadyToRun>true</PublishReadyToRun>
-    <RuntimeIdentifier>osx-x64</RuntimeIdentifier>
+
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
   </PropertyGroup>

@@ -1,0 +1,57 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                Libation v12.8.0 Release Bundles Report                        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Generated: Thu Nov 20 17:29:28 CET 2025
+Version: 12.8.0
+Output Directory: FinalReleaseFixedClean
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVAILABLE BUNDLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Libation.12.8.0-macOS-chardonnay-osx-arm64.tgz
+  Size:  80M
+  MD5: eef8ec242f56c5a310bb0ff7bdd9b31c
+
+✓ Libation.12.8.0-macOS-chardonnay-osx-x64.tgz
+  Size:  96M
+  MD5: 0f0c96bc7bfc481a7a6a5ccc4892ea12
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTALLATION INSTRUCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+macOS:
+  1. Extract the .tgz file: tar -xzf Libation.*.tgz
+  2. Move Libation.app to /Applications/
+  3. Run: /Applications/Libation.app/Contents/MacOS/Libation
+
+Windows:
+  1. Extract the .zip file
+  2. Run: Libation.exe
+
+Linux (Debian):
+  1. Install: sudo apt install ./libation_*.deb
+  2. Run: libation
+
+Linux (RedHat):
+  1. Install: sudo rpm -i libation-*.rpm
+  2. Run: libation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPLOYMENT CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Verify all bundles are present and have correct sizes
+□ Test bundle integrity on target platforms
+□ Create GitHub release at https://github.com/rmcrackan/Libation/releases
+□ Upload bundles to GitHub release
+□ Update website with new version
+□ Announce release on community channels
+□ Monitor for bug reports
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For more information, visit: https://github.com/rmcrackan/Libation

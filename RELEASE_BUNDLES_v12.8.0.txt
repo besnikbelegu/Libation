@@ -1,0 +1,61 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                Libation v12.8.0 Release Bundles Report                        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+Generated: Thu Nov 20 11:35:02 CET 2025
+Version: 12.8.0
+Output Directory: .
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVAILABLE BUNDLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✓ Libation.12.8.0-Windows-chardonnay-win-x64.zip
+  Size:  79M
+  MD5: ecab6e492fa5b966d668cf19833c650c
+
+✓ Libation.12.8.0-macOS-chardonnay-osx-arm64.tgz
+  Size:  54M
+  MD5: 3daae4e6993c1224067a4a39e0080f95
+
+✓ Libation.12.8.0-macOS-chardonnay-osx-x64.tgz
+  Size:  57M
+  MD5: 470ad3317bb05adc35981633099986b6
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTALLATION INSTRUCTIONS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+macOS:
+  1. Extract the .tgz file: tar -xzf Libation.*.tgz
+  2. Move Libation.app to /Applications/
+  3. Run: /Applications/Libation.app/Contents/MacOS/Libation
+
+Windows:
+  1. Extract the .zip file
+  2. Run: Libation.exe
+
+Linux (Debian):
+  1. Install: sudo apt install ./libation_*.deb
+  2. Run: libation
+
+Linux (RedHat):
+  1. Install: sudo rpm -i libation-*.rpm
+  2. Run: libation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEPLOYMENT CHECKLIST
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+□ Verify all bundles are present and have correct sizes
+□ Test bundle integrity on target platforms
+□ Create GitHub release at https://github.com/rmcrackan/Libation/releases
+□ Upload bundles to GitHub release
+□ Update website with new version
+□ Announce release on community channels
+□ Monitor for bug reports
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+For more information, visit: https://github.com/rmcrackan/Libation

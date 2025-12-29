@@ -375,3 +375,11 @@ CLAUDE.md
 .claude/settings.local.json
 .github/copilot-instructions.md
 AGENTS.md
+ReleaseOutput
+TestPublish
+bundle
+deb
+*.tgz
+*.zip
+*.app
+TestPublish*

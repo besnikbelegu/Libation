@@ -50,7 +50,31 @@ This creates smaller bundles (~45-50 MB each) but requires users to install:
 
 ### For End Users
 
-#### Option A: Install .NET Runtime (Quick Fix)
+#### Option A: Use Self-Contained Bundle (Preferred) ⭐
+
+The newest Libation releases are **self-contained** - everything you need is included!
+
+**For Windows:**
+1. Download `Libation.12.8.0-Windows-chardonnay-win-x64.zip`
+2. Right-click → Extract All...
+3. Open the extracted folder and double-click `Libation.exe`
+4. ✅ It just works! No installation needed.
+
+**For macOS:**
+1. Download `Libation.12.8.0-macOS-chardonnay-osx-x64.tgz`
+2. Double-click to extract
+3. Open the extracted `Libation.app` by double-clicking it
+4. ✅ It just works! No installation needed.
+
+**For Linux:**
+1. Download `libation_12.8.0_amd64.deb` or `.rpm`
+2. Install: `sudo apt install ./libation_12.8.0_amd64.deb`
+3. Run from applications menu or `libation` in terminal
+4. ✅ It just works!
+
+#### Option B: Install .NET Runtime (For Smaller Downloads)
+
+⚠️ **Only needed if using older non-self-contained releases**
 
 1. Download [.NET 9.0 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 2. Install for your platform:
