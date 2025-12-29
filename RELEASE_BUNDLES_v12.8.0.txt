@@ -2,7 +2,7 @@
 ║                Libation v12.8.0 Release Bundles Report                        ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
-Generated: Thu Nov 20 11:35:02 CET 2025
+Generated: Mon Dec 29 16:22:10 CET 2025
 Version: 12.8.0
 Output Directory: .
 
@@ -19,7 +19,7 @@ AVAILABLE BUNDLES
   MD5: 3daae4e6993c1224067a4a39e0080f95
 
 ✓ Libation.12.8.0-macOS-chardonnay-osx-x64.tgz
-  Size:  57M
+  Size:  56M
   MD5: 470ad3317bb05adc35981633099986b6
 
 

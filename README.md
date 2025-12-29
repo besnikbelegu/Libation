@@ -89,7 +89,7 @@ I made this for myself and I want to share it with the great programming and aud
 
 ### Prerequisites
 
-- **.NET 9.0 SDK** - [Download from dot.net](https://dot.net)
+- **.NET 10.0 SDK** - [Download from dot.net](https://dot.net)
 - **Git** - For version control
 - Optional: **Visual Studio 2022** or **Visual Studio Code** with C# extensions
 
@@ -186,7 +186,7 @@ dotnet build Source/LibationAvalonia/LibationAvalonia.csproj \
 
 ```bash
 dotnet build Source/LibationAvalonia/LibationAvalonia.csproj \
-  -p:TargetFramework=net9.0 \
+  -p:TargetFramework=net10.0 \
   -p:RuntimeIdentifier=linux-x64
 ```
 
